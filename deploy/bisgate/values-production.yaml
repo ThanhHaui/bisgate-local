@@ -1,0 +1,4 @@
+ingress:
+  hostname: bisgate.vn
+env:
+  dbDatabase: bisgate

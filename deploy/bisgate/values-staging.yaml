@@ -1,0 +1,4 @@
+ingress:
+  hostname: demo.bisgate.vn
+env:
+  dbDatabase: bisgate

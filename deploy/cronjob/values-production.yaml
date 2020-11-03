@@ -1,0 +1,30 @@
+image:
+  repository: harbor.zinza.com.vn/gps-tracking/bisgate
+  pullPolicy: IfNotPresent
+  tag: latest
+
+imagePullSecrets:
+  - name: pull-secret
+nameOverride: ""
+fullnameOverride: ""
+
+schedule: "*/30 * * * *"
+
+env:
+  dbHost: mysql
+  dbPort: 3306
+  dbDatabase: bisgate
+  dbUsername: root
+  mongoDBHostName: mongodb-sharded
+  mongoPort: 27017
+  mongoNoAuth: 0
+  mongoUserName: root
+  mongoDatabase: gps-tracking
+  redisConnect: redis-ha-announce-0:26379,redis-ha-announce-1:26379,redis-ha-announce-2:26379
+
+mysqlSecret:
+  name: mysql
+  key: mysql-root-password
+mongoSecret:
+  name: mongodb-sharded
+  key: mongodb-root-password

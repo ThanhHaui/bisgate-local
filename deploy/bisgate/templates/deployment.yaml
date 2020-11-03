@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "bisgate.fullname" . }}
+  labels:
+    {{- include "bisgate.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "bisgate.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "bisgate.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8000
+          env:
+            - name: DB_HOST
+              value: {{ .Values.env.dbHost }}
+            - name: DB_PORT
+              value: "{{ .Values.env.dbPort }}"
+            - name: DB_DATABASE
+              value: {{ .Values.env.dbDatabase }}
+            - name: DB_USERNAME
+              value: {{ .Values.env.dbUsername }}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mysqlSecret.name }}
+                  key: {{ .Values.mysqlSecret.key }}
+            - name: MONGO_DB_HOST_NAME
+              value: {{ .Values.env.mongoDBHostName }}
+            - name: MONGO_DB_PORT
+              value: "{{ .Values.env.mongoPort }}"
+            - name: MONGO_DB_NO_AUTH
+              value: "{{ .Values.env.mongoNoAuth }}"
+            - name: MONGO_DB_USER_NAME
+              value: {{ .Values.env.mongoUserName }}
+            - name: MONGO_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.mongoSecret.name }}
+                  key: {{ .Values.mongoSecret.key }}
+            - name: MONGO_DB_DATABASE
+              value: {{ .Values.env.mongoDatabase }}
+            - name: REDIS_CONNECT
+              value: "{{ .Values.env.redisConnect }}"
+          volumeMounts:
+            - mountPath: /var/www/html/assets/uploads
+              name: dataupload
+
+      volumes:
+      - name: dataupload
+        persistentVolumeClaim:
+          claimName: bislog-data-upload
+          
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

@@ -1,0 +1,376 @@
+.divTable {
+    /*height: 500px;*/
+    width: 100%;
+}
+
+#table-data {
+    width: 100% !important;
+}
+
+#table-data thead>tr>th,
+#table-data tbody>tr>td {
+    min-width: 250px;
+    height: 25px;
+    border: dashed 1px lightblue;
+}
+
+.fix_width {
+    min-width: 60px !important;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+
+.dropdown-menu {
+    border: 1px solid #d2d6de;
+    border-radius: 0;
+    padding: 0;
+}
+
+.dropdown-menu li+li {
+    border-top: 1px solid #d2d6de;
+}
+
+.dropdown-menu li a.btn-filter-data {
+    padding: 3px 20px;
+    display: block;
+}
+
+.dropdown-menu li a.btn-filter-data .caret {
+    position: absolute;
+    top: 12px;
+    right: 5px;
+}
+
+.dropdown-menu li a.btn-filter-addadd {
+    padding: 3px 20px;
+    display: block;
+}
+
+.dropdown-menu li a.btn-filter-add .caret {
+    position: absolute;
+    top: 12px;
+    right: 5px;
+}
+
+.dropdown-menu ul li .form-group:first-child {
+    margin-top: 15px;
+}
+
+#changeLimit {
+    width: 26px;
+    height: 26px;
+    outline: none;
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.dropdown-submenu.show .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li a.btn-filter-data-add {
+    padding: 3px 20px;
+    display: block;
+}
+
+.dropdown-menu li a.btn-filter-data-add .caret {
+    position: absolute;
+    top: 12px;
+    right: 5px;
+}
+
+.red {
+    color: #ff0000;
+}
+
+#modalAddFilter .form-group label {
+    color: #000000;
+}
+
+#modalAddFilter .input-group {
+    width: 100%;
+}
+
+#modalAddFilter .input-group-btn .btn {
+    width: 100%;
+    background: transparent;
+    box-shadow: none;
+    border: 1px solid #d2d6de;
+    text-align: left;
+}
+
+#modalAddFilter .input-group-btn .fa {
+    float: right;
+    font-size: 20px;
+}
+
+#modalAddFilter .input-group-btn .dropdown-menu li a.btn-filter-data-add {
+    padding: 3px 20px 3px 0;
+}
+
+#modalAddFilter .input-group-btn .dropdown-menu {
+    right: 0px;
+    left: -1px;
+    padding: 0 10px;
+}
+
+#modalAddFilter .input-group-btn .dropdown-menu>li>a:hover,
+#modalAddFilter .input-group-btn .dropdown-menu>li>a {
+    background-color: transparent;
+}
+
+#modalAddFilter .input-group-btn .dropdown-menu .dropdown-submenu {
+    position: relative;
+}
+
+#modalAddFilter .input-group-btn .dropdown-menu .dropdown-submenu ul li a {
+    -webkit-transition: all 0.3s ease 0s;
+    -moz-transition: all 0.3s ease 0s;
+    -ms-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+
+#modalAddFilter .input-group-btn .dropdown-menu .dropdown-submenu ul li a:hover {
+    color: #fff;
+}
+
+#modalAddFilter .input-group-btn .dropdown-menu .dropdown-submenu ul {
+    left: calc(100% + 10px);
+    padding: 0;
+    top: 0;
+    position: absolute;
+    min-width: 200px;
+}
+
+#modalAddFilter .box-body table thead tr th {
+    color: #615f5f;
+    font-weight: inherit;
+    text-align: center;
+    background: #f1f0f0;
+}
+
+#modalAddFilter .box-body {
+    padding: 0;
+    margin-top: 10px;
+}
+
+#modalAddFilter .modal-footer .btn-danger {
+    padding: 4px 20px;
+    font-size: 18px;
+    background-color: #af1b09;
+    border-color: #af1b09;
+    float: left;
+    display: inline-block !important;
+}
+
+#modalAddFilter .table-responsive table tr td:last-child {
+    text-align: center;
+}
+
+.input-group ul li {
+    position: relative;
+}
+
+.input-group ul>li .fa-caret-down {
+    right: 10px;
+    top: 5px;
+    position: absolute;
+}
+
+.input-group ul>li ul li {
+    padding: 5px 15px;
+    cursor: pointer;
+    border: 1px solid #e3e3e3;
+}
+
+.input-group ul>li ul li i {
+    color: #ccc;
+    position: relative;
+}
+
+.input-group ul>li ul li i:hover span {
+    opacity: 1;
+    pointer-events: all;
+    top: 100%;
+}
+
+.input-group ul>li ul li i span {
+    top: 120%;
+    position: absolute;
+    transition: .3s;
+    left: 100%;
+    min-width: 100px;
+    padding: 10px;
+    border: 1px solid;
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 11;
+}
+
+.input-group ul>li ul li:hover {
+    background: #0d6aad;
+    color: #fff;
+}
+
+.input-group ul>li ul {
+    display: none;
+    background: #fff;
+    padding: 0;
+    position: absolute;
+    top: calc(100% + 7px);
+    left: -13px;
+    right: -13px;
+    border: 1px solid #e3e3e3;
+}
+
+.drag {
+    opacity: 1 !important;
+}
+
+.input-group .input-group-btn .btn.dropdown-toggle {
+    background: transparent;
+    border: 1px solid #d2d6de;
+    margin-right: 10px;
+}
+
+@media screen and (max-width: 767px) {
+    #modalAddFilter .table-responsive table tr td {
+        border-right: 1px solid #ddd !important;
+    }
+    #modalAddFilter .table-responsive table {
+        border: 1px solid #ddd !important;
+    }
+    #modalAddFilter .table-responsive {
+        border: none;
+    }
+}
+
+#table-data-filter.icon-unsorted-hover .fa-unsorted {
+    visibility: hidden;
+}
+
+#table-data-filter.icon-unsorted-hover td:hover .fa-unsorted {
+    visibility: visible;
+}
+
+.paginate_table.modal_paginate_table .up-n-pager .total-row {
+    padding-left: 0;
+}
+
+.paginate_table.pull-right:hover {
+    background: inherit;
+}
+
+
+/*.allcheck {*/
+
+
+/*    display: inline-block;*/
+
+
+/*    vertical-align: middle;*/
+
+
+/*    margin: 0;*/
+
+
+/*    padding: 0;*/
+
+
+/*    width: 22px;*/
+
+
+/*    height: 22px;*/
+
+
+/*    background: url('../vendor/plugins/iCheck/square/blue.png') no-repeat;*/
+
+
+/*    border: none;*/
+
+
+/*    cursor: pointer;*/
+
+
+/*    background-position: -48px 0;*/
+
+
+/*}*/
+
+.packageName,
+.fa.fa-fw.fa-plus-circle {
+    color: #027db4;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.css-itemSearchName {
+    top: 10px;
+    left: 10px;
+    z-index: 9;
+    position: absolute;
+}
+
+#itemSearchName {
+    padding-left: 30px;
+}
+
+span.customer {
+    padding: 10px;
+}
+span.primary{
+    color: #1782db;
+}
+.up-n-pager {
+    display: flex;
+    float: right;
+}
+.up-n-pager span {
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.btn.btn-default:hover .fa.fa-cog {
+    -webkit-animation: spinAround 2s linear;
+    -moz-animation: spinAround 2s linear;
+    animation: spinAround 2s linear;
+}
+
+@-webkit-keyframes spinAround {
+    from {
+        -webkit-transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(720deg);
+    }
+}
+
+@-moz-keyframes spinAround {
+    from {
+        -moz-transform: rotate(0deg)
+    }
+    to {
+        -moz-transform: rotate(720deg);
+    }
+}
+
+@keyframes spinAround {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(720deg);
+    }
+}

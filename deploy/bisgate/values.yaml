@@ -1,0 +1,67 @@
+# Default values for bisgate.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: harbor.zinza.com.vn/gps-tracking/bisgate
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: pull-secret
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hostname: demo.bisgate.vn
+  # Open tcp port for socket https://kubernetes.github.io/ingress-nginx/user-guide/exposing-tcp-udp-services/
+  tls:
+    enabled: true
+    secretName: bisgate-tls
+
+env:
+  dbHost: mysql
+  dbPort: 3306
+  dbDatabase: demo_bisgate
+  dbUsername: root
+  mongoDBHostName: mongodb-sharded
+  mongoPort: 27017
+  mongoNoAuth: 0
+  mongoUserName: root
+  mongoDatabase: gps-tracking
+  redisConnect: redis-ha-announce-0:26379,redis-ha-announce-1:26379,redis-ha-announce-2:26379
+
+mysqlSecret:
+  name: mysql
+  key: mysql-root-password
+mongoSecret:
+  name: mongodb-sharded
+  key: mongodb-root-password
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

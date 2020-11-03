@@ -1,0 +1,102 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  IMAGE_NAME: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+
+.init_func: &init_func |
+  set -eo pipefail
+  [[ "$TRACE" ]] && set -x
+
+  init_kube_config() {
+    echo "init kube config"
+    export KUBECONFIG=$KUBE_CONFIG:$KUBE_CONFIG_PRD
+    echo "$KUBE_HOSTS" > /etc/hosts
+    kubectl config use-context $CI_ENVIRONMENT_NAME
+  }
+
+.deploy: &deploy |
+  echo "deploy $CI_PROJECT_NAME"
+  cd deploy/$CI_PROJECT_NAME
+  helm upgrade --install $CI_PROJECT_NAME . \
+    --namespace "$KUBE_NAMESPACE" \
+    -f values-$CI_ENVIRONMENT_NAME.yaml \
+    --set-string image.tag="$CI_COMMIT_SHORT_SHA" \
+    --atomic --wait
+
+build:
+  stage: build
+  image: docker
+  services:
+    - docker:dind
+  script:
+    - cp $CRON_JOB cron_job.sh
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -f $CI_PROJECT_DIR/docker/app/Dockerfile -t $IMAGE_NAME .
+    - docker push $IMAGE_NAME
+  only:
+    - master
+    - feature/cron_job
+  when: manual
+
+deploy_staging:
+  stage: deploy
+  image: harbor.zinza.com.vn/sysad/docker/kube-tool:1.17.2-helm3.1.2
+  before_script:
+    - *init_func
+  script:
+    - init_kube_config
+    - *deploy
+  only:
+    - master
+  environment:
+    name: staging
+  when: manual
+
+deploy_cron_job_staging:
+  stage: deploy
+  image: harbor.zinza.com.vn/sysad/docker/kube-tool:1.17.2-helm3.1.2
+  before_script:
+    - *init_func
+  script:
+    - init_kube_config
+    - *deploy
+  only:
+    - master
+    - feature/cron_job
+  environment:
+    name: staging
+  variables:
+    CI_PROJECT_NAME: cronjob
+  when: manual
+
+deploy_production:
+  image: harbor.zinza.com.vn/sysad/docker/kube-tool:1.17.2-helm3.1.2
+  stage: deploy
+  before_script:
+    - *init_func
+  script:
+    - init_kube_config
+    - *deploy
+  only:
+    - master
+  environment:
+    name: production
+  when: manual
+
+deploy_cron_job_production:
+  stage: deploy
+  image: harbor.zinza.com.vn/sysad/docker/kube-tool:1.17.2-helm3.1.2
+  before_script:
+    - *init_func
+  script:
+    - init_kube_config
+    - *deploy
+  only:
+    - master
+  environment:
+    name: production
+  variables:
+    CI_PROJECT_NAME: cronjob
+  when: manual
